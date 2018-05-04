@@ -1,8 +1,7 @@
 #!/usr/bin/python
-#usage: get_model [filename.ply]
-#example: get_model cup.ply 
 
 import argparse
+
 
 parser = argparse.ArgumentParser()
 parser.add_argument('filename', type=str)
@@ -37,12 +36,20 @@ with open(args.filename,"r") as file:
 			flag_vertex_norm=0
 			flag_model_index=1
 		if flag_vertex_norm:
-			model_vertex.append(float(row[0]))
-			model_vertex.append(float(row[1]))
-			model_vertex.append(float(row[2]))
-			model_norm.append(float(row[3]))
-			model_norm.append(float(row[4]))
-			model_norm.append(float(row[5]))
+			if args.filename=="cup.ply": #change y and z axis, easier for texture mapping later
+				model_vertex.append(float(row[0]))
+				model_vertex.append(float(row[2]))
+				model_vertex.append(float(row[1]))
+				model_norm.append(float(row[3]))
+				model_norm.append(float(row[5]))
+				model_norm.append(float(row[4]))
+			else:
+				model_vertex.append(float(row[0]))
+				model_vertex.append(float(row[1]))
+				model_vertex.append(float(row[2]))
+				model_norm.append(float(row[3]))
+				model_norm.append(float(row[4]))
+				model_norm.append(float(row[5]))
 		if flag_model_index:
 			model_index.append(int(row[1]))
 			model_index.append(int(row[2]))
